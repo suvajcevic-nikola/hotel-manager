@@ -1,5 +1,6 @@
 FROM node:20-alpine
 WORKDIR /app
+ENV DATABASE_URL="file:./db/dev.db"
 COPY package*.json ./
 RUN npm install
 COPY . .
