@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { getRooms, createRoom, deleteRoom } from "../services/roomService";
+import { getRooms, createRoom, deleteRoom, getRoom } from "../services/roomService";
 
 export const getRoomsHandler = async (
   _request: FastifyRequest,
@@ -21,7 +21,10 @@ export const createRoomsHandler = async (
 ) => {
   try {
     for (let i = 1; i <= 20; i++) {
-      await createRoom(i);
+      const room = await getRoom(i);
+      if (!room) {
+        await createRoom(i);
+      }
     }
     reply.code(201).send({ message: "Rooms created" });
   } catch (error) {

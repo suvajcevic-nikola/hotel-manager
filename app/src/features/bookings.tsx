@@ -6,6 +6,10 @@ export type Booking = {
   guestId: number;
   startDate: string;
   endDate: string;
+  guest?: {
+    id: number;
+    name: string;
+  };
 };
 
 function Bookings() {
@@ -25,6 +29,7 @@ function Bookings() {
                 className="flex flex-col gap-2 bg-neutral-800 ring-[1px] ring-neutral-600 rounded-lg px-6 py-2"
               >
                 <div>Room: {booking.roomId}</div>
+                <div>Guest: {booking.guest?.name}</div>
                 <div>
                   Start Date: {new Date(booking.startDate).toLocaleDateString()}
                 </div>
