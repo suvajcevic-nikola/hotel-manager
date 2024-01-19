@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: caddy:2.7.4-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - /app/dist
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "3000:3000"
+    volumes:
+      - ./server/db:/db
+
+networks:
+  default:
+    driver: bridge
