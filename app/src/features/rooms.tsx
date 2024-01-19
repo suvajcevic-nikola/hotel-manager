@@ -115,7 +115,7 @@ export const RoomCard = ({
     <div
       onClick={handleClick}
       className={clsx(
-        "col-spa-1 h-[70px] flex gap-1 justify-between items-center bg-emerald-600 ring ring-emerald-800 p-4 rounded-md cursor-pointer",
+        "col-span-1 h-[70px] flex gap-1 justify-between items-center bg-emerald-600 ring ring-emerald-800 p-4 rounded-md cursor-pointer",
         isBooked ? "bg-emerald-800" : "bg-emerald-600"
       )}
     >
