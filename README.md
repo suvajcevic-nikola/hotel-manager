@@ -6,8 +6,13 @@ Welcome to the Hotel Manager application! This is a home test task that utilizes
 
 Before running the application, ensure you have the following installed:
 
-- Docker
-- Docker Compose
+- **Docker:**
+   - **macOS:** [https://docs.docker.com/desktop/mac/install/](https://docs.docker.com/desktop/mac/install/)
+   - **Windows:** [https://docs.docker.com/desktop/windows/install/](https://docs.docker.com/desktop/windows/install/)
+   - **Linux:** [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+- **Docker Compose:**
+   - **macOS and Windows:** Included with Docker Desktop
+   - **Linux:** [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
 ## Getting Started
 

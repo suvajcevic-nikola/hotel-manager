@@ -70,7 +70,7 @@ const CheckInModal = ({
             value={guestName}
             onChange={handleGuestNameChange}
             placeholder="Enter Guest Name"
-            className="px-2 py-1 rounded-md"
+            className="px-2 py-1 bg-neutral-600 rounded-md"
           />
         </div>
         <button
