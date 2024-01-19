@@ -8,6 +8,7 @@ import { type Booking } from "./bookings";
 import { create as createGuest } from "../data/guest";
 import { createAll as createAllRooms } from "../data/room";
 import { useGetRooms } from "../hooks";
+import { Spinner } from "../components";
 import clsx from "clsx";
 
 export type Room = {
@@ -27,12 +28,14 @@ type CheckInModalProps = {
   roomId: number;
   onRequestClose: () => void;
   handleSubmit: (_romId: number, _guestName: string) => void;
+  isLoadingCheckIn: boolean;
 };
 
 const CheckInModal = ({
   roomId,
   onRequestClose,
   handleSubmit,
+  isLoadingCheckIn,
 }: CheckInModalProps) => {
   const [guestName, setGuestName] = useState("");
 
@@ -42,9 +45,17 @@ const CheckInModal = ({
     setGuestName(event.target.value);
   };
 
+  const handleRequestClose = () => {
+    if (isLoadingCheckIn) {
+      return;
+    }
+
+    onRequestClose();
+  };
+
   return ReactDOM.createPortal(
     <div
-      onClick={onRequestClose}
+      onClick={handleRequestClose}
       className="fixed inset-0 backdrop-blur-sm flex items-center justify-center"
     >
       <div
@@ -64,9 +75,11 @@ const CheckInModal = ({
         </div>
         <button
           onClick={() => handleSubmit(roomId, guestName)}
-          className="bg-emerald-600 rounded-md"
+          className="flex justify-center items-center gap-2 p-1 bg-emerald-600 rounded-md"
+          disabled={isLoadingCheckIn}
         >
           Submit
+          {isLoadingCheckIn && <Spinner />}
         </button>
       </div>
     </div>,
@@ -74,7 +87,7 @@ const CheckInModal = ({
   );
 };
 
-const RoomCard = ({
+export const RoomCard = ({
   roomNumber,
   lastBooking,
   openCIModalHandler,
@@ -102,11 +115,13 @@ const RoomCard = ({
     <div
       onClick={handleClick}
       className={clsx(
-        "col-spa-1 h-[70px] flex gap-1 justify-between items-center bg-emerald-600 ring ring-emerald-800 p-4 rounded-md",
+        "col-spa-1 h-[70px] flex gap-1 justify-between items-center bg-emerald-600 ring ring-emerald-800 p-4 rounded-md cursor-pointer",
         isBooked ? "bg-emerald-800" : "bg-emerald-600"
       )}
     >
-      <div className="font-bold text-xl">{roomNumber}</div>
+      <div data-testid="roomCard-roomNumber" className="font-bold text-xl">
+        {roomNumber}
+      </div>
       {isBooked && <div className="text-xl">Booked!</div>}
       {isBooked && (
         <button
@@ -128,6 +143,7 @@ function Rooms() {
     isOpen: false,
     roomId: null,
   });
+  const [isLoadingCheckIn, setIsLoadingCheckIn] = useState(false);
   const { data: rooms, isLoading, refetch: refetchRooms } = useGetRooms();
 
   const isCIModalReady = cIModalData.isOpen && cIModalData.roomId;
@@ -162,6 +178,7 @@ function Rooms() {
     setCiModalData({ isOpen: true, roomId: null });
 
   const handleGuestCheckIn = (roomId: number, guestName: string) => {
+    setIsLoadingCheckIn(true);
     createGuest({
       name: guestName,
     })
@@ -177,13 +194,16 @@ function Rooms() {
           endDate: endDate.toISOString(),
         }).then(() => refetchRooms());
       })
-      .catch((error) => console.error(error));
-
-    closeCIModalHandler();
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setIsLoadingCheckIn(false);
+        closeCIModalHandler();
+      });
   };
 
   const handleRoomCancel = (roomId: number) => {
-    const lastBooking = rooms.find((room: Room) => room.id === roomId)
+    const lastBooking = rooms
+      .find((room: Room) => room.id === roomId)
       ?.bookings?.slice(-1)[0];
 
     if (!lastBooking) {
@@ -216,6 +236,7 @@ function Rooms() {
           roomId={cIModalData.roomId as number}
           onRequestClose={closeCIModalHandler}
           handleSubmit={handleGuestCheckIn}
+          isLoadingCheckIn={isLoadingCheckIn}
         />
       )}
     </div>
