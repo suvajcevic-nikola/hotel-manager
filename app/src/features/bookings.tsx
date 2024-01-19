@@ -1,4 +1,4 @@
-import useGetBookings from "../hooks/data/useGetBookings";
+import { useGetBookings } from "../hooks";
 
 export type Booking = {
   id?: number;
