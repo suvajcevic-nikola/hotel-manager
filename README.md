@@ -1,6 +1,6 @@
 # Hotel Manager App
 
-Welcome to the Hotel Manager application! This is a home test task that utilizes Docker, Caddy, React, Node.js with Fastify, Prisma, and SQLite.
+Welcome to the Hotel Manager application! This is a home test task that utilizes Docker, Caddy, React, Next.js, Node.js with Fastify, Prisma, and SQLite.
 
 ## Prerequisites
 
@@ -19,6 +19,7 @@ Before running the application, ensure you have the following installed:
 1. Add the following entry to your `/etc/hosts` file:
 
     ```plaintext
+    127.0.0.1 next.hotelmanager.local
     127.0.0.1 hotelmanager.local
     ```
 
