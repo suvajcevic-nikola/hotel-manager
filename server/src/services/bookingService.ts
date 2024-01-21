@@ -1,6 +1,8 @@
 import prisma from "../prismaClient";
+import { CreateBookingArgs, UpdateBookingArgs } from "../types/bookingTypes";
 
-export const createBooking = async (guestId: number, roomId: number, startDate: Date, endDate: Date) => {
+export const createBooking = async (args: CreateBookingArgs) => {
+  const { guestId, roomId, startDate, endDate } = args;
   return await prisma.booking.create({
     data: {
       guestId,
@@ -20,7 +22,7 @@ export const getBookings = async () => {
   });
 };
 
-export const getBooking = async (id: number) => {
+export const getBooking = async ({ id }: { id: number }) => {
   return await prisma.booking.findUnique({
     where: { id },
     include: {
@@ -30,7 +32,9 @@ export const getBooking = async (id: number) => {
   });
 };
 
-export const updateBooking = async (id: number, guestId: number, roomId: number, startDate: Date, endDate: Date) => {
+export const updateBooking = async (args: UpdateBookingArgs) => {
+  const { id, guestId, roomId, startDate, endDate } = args;
+
   return await prisma.booking.update({
     where: { id },
     data: {
@@ -42,7 +46,7 @@ export const updateBooking = async (id: number, guestId: number, roomId: number,
   });
 };
 
-export const deleteBooking = async (id: number) => {
+export const deleteBooking = async ({ id }: { id: number }) => {
   return await prisma.booking.delete({
     where: { id },
   });

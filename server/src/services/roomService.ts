@@ -8,7 +8,7 @@ export const getRooms = async () => {
   });
 };
 
-export const getRoom = async (id: number) => {
+export const getRoom = async ({ id }: { id: number }) => {
   return await prisma.room.findUnique({
     where: { id },
     include: {
@@ -17,20 +17,26 @@ export const getRoom = async (id: number) => {
   });
 };
 
-export const createRoom = async (number: number) => {
+export const createRoom = async ({ number }: { number: number }) => {
   return await prisma.room.create({
     data: { number },
   });
 };
 
-export const updateRoom = async (id: number, number: number) => {
+export const updateRoom = async ({
+  id,
+  number,
+}: {
+  id: number;
+  number: number;
+}) => {
   return await prisma.room.update({
     where: { id },
     data: { number },
   });
 };
 
-export const deleteRoom = async (id: number) => {
+export const deleteRoom = async ({ id }: { id: number }) => {
   return await prisma.room.delete({
     where: { id },
   });

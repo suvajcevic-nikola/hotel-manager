@@ -21,9 +21,9 @@ export const createRoomsHandler = async (
 ) => {
   try {
     for (let i = 1; i <= 20; i++) {
-      const room = await getRoom(i);
+      const room = await getRoom({id: i});
       if (!room) {
-        await createRoom(i);
+        await createRoom({number: i});
       }
     }
     reply.code(201).send({ message: "Rooms created" });
@@ -41,7 +41,7 @@ export const deleteRoomsHandler = async (
   try {
     const rooms = await getRooms();
     for (const room of rooms) {
-      await deleteRoom(room.id);
+      await deleteRoom({id: room.id});
     }
     reply.code(200).send({ message: "All rooms deleted" });
   } catch (error) {

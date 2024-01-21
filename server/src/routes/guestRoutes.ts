@@ -1,12 +1,18 @@
 import fastify from "../server";
 import {
+  getGuestsHandler,
   createGuestHandler,
   deleteGuestHandler,
-  getGuestsHandler,
 } from "../controllers/guestController";
 
 export async function guestRoutes() {
   fastify.get("/api/v1.0/guests", getGuestsHandler);
-  fastify.post("/api/v1.0/guest", createGuestHandler);
-  fastify.delete("/api/v1.0/guest/:id", deleteGuestHandler);
+  fastify.post<{ Body: { name: string } }>(
+    "/api/v1.0/guest",
+    createGuestHandler
+  );
+  fastify.delete<{ Params: { id: string } }>(
+    "/api/v1.0/guest/:id",
+    deleteGuestHandler
+  );
 }

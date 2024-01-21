@@ -14,7 +14,7 @@ describe("roomRoutes", () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it("should respond with 200 for POST /rooms", async () => {
+  it("should respond with 201 for POST /rooms", async () => {
     const response = await fastify.inject({
       method: "POST",
       url: "/api/v1.0/rooms",

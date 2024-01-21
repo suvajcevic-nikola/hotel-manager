@@ -1,13 +1,18 @@
-import { FastifyReply } from "fastify";
+import { FastifyReply, FastifyRequest } from "fastify";
 import {
   createBooking,
   deleteBooking,
   getBookings,
   updateBooking,
 } from "../services/bookingService";
+import {
+  CreateBookingHandlerArgs,
+  DeleteBookingHandler,
+  UpdateBookingHandlerArgs,
+} from "../types/bookingTypes";
 
 export const getBookingsHandler = async (
-  _request: any,
+  _request: FastifyRequest,
   reply: FastifyReply
 ) => {
   try {
@@ -21,12 +26,17 @@ export const getBookingsHandler = async (
 };
 
 export const createBookingHandler = async (
-  request: any,
+  request: CreateBookingHandlerArgs,
   reply: FastifyReply
 ) => {
   try {
     const { guestId, roomId, startDate, endDate } = request.body;
-    const newBooking = await createBooking(guestId, roomId, startDate, endDate);
+    const newBooking = await createBooking({
+      guestId,
+      roomId,
+      startDate,
+      endDate,
+    });
     reply.code(201).send(newBooking);
   } catch (error) {
     if (error instanceof Error) {
@@ -36,19 +46,19 @@ export const createBookingHandler = async (
 };
 
 export const updateBookingHandler = async (
-  request: any,
+  request: UpdateBookingHandlerArgs,
   reply: FastifyReply
 ) => {
   try {
     const id = Number(request.params.id);
     const { guestId, roomId, startDate, endDate } = request.body;
-    const updatedBooking = await updateBooking(
+    const updatedBooking = await updateBooking({
       id,
       guestId,
       roomId,
       startDate,
-      endDate
-    );
+      endDate,
+    });
     reply.code(200).send(updatedBooking);
   } catch (error) {
     if (error instanceof Error) {
@@ -58,12 +68,12 @@ export const updateBookingHandler = async (
 };
 
 export const deleteBookingHandler = async (
-  request: any,
+  request: DeleteBookingHandler,
   reply: FastifyReply
 ) => {
   try {
     const id = Number(request.params.id);
-    await deleteBooking(id);
+    await deleteBooking({ id });
     reply.code(200).send({ message: `Booking ${id} deleted` });
   } catch (error) {
     if (error instanceof Error) {

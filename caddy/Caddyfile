@@ -1,6 +1,12 @@
-hotelmanager.local {
-    tls internal
+next.hotelmanager.local {
+    handle {
+        reverse_proxy {
+            to next:3000
+        }
+    }
+}
 
+hotelmanager.local {
     handle {
         reverse_proxy {
             to app:5173

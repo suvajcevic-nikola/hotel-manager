@@ -15,7 +15,10 @@ export const getGuestsHandler = async (
   }
 };
 
-export const createGuestHandler = async (request: any, reply: FastifyReply) => {
+export const createGuestHandler = async (
+  request: { body: { name: string } },
+  reply: FastifyReply
+) => {
   try {
     const { name } = request.body;
     if (!name) {
@@ -23,7 +26,7 @@ export const createGuestHandler = async (request: any, reply: FastifyReply) => {
       return;
     }
 
-    const newGuest = await createGuest(name);
+    const newGuest = await createGuest({ name });
     reply.code(201).send(newGuest);
   } catch (error) {
     if (error instanceof Error) {
@@ -32,7 +35,14 @@ export const createGuestHandler = async (request: any, reply: FastifyReply) => {
   }
 };
 
-export const deleteGuestHandler = async (request: any, reply: FastifyReply) => {
+export const deleteGuestHandler = async (
+  request: {
+    params: {
+      id: string;
+    };
+  },
+  reply: FastifyReply
+) => {
   try {
     const id = Number(request.params.id);
     if (!id) {
@@ -40,7 +50,7 @@ export const deleteGuestHandler = async (request: any, reply: FastifyReply) => {
       return;
     }
 
-    await deleteGuest(id);
+    await deleteGuest({ id });
     reply.code(200).send({ message: `Guest ${id} deleted` });
   } catch (error) {
     if (error instanceof Error) {
