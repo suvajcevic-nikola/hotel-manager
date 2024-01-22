@@ -1,9 +1,9 @@
 import prisma from "../prismaClient";
 import { CreateBookingArgs, UpdateBookingArgs } from "../types/bookingTypes";
 
-export const createBooking = async (args: CreateBookingArgs) => {
+export const createBooking = (args: CreateBookingArgs) => {
   const { guestId, roomId, startDate, endDate } = args;
-  return await prisma.booking.create({
+  return prisma.booking.create({
     data: {
       guestId,
       roomId,
@@ -13,8 +13,8 @@ export const createBooking = async (args: CreateBookingArgs) => {
   });
 };
 
-export const getBookings = async () => {
-  return await prisma.booking.findMany({
+export const getBookings = () => {
+  return prisma.booking.findMany({
     include: {
       guest: true,
       room: true,
@@ -22,8 +22,8 @@ export const getBookings = async () => {
   });
 };
 
-export const getBooking = async ({ id }: { id: number }) => {
-  return await prisma.booking.findUnique({
+export const getBooking = ({ id }: { id: number }) => {
+  return prisma.booking.findUnique({
     where: { id },
     include: {
       guest: true,
@@ -32,10 +32,10 @@ export const getBooking = async ({ id }: { id: number }) => {
   });
 };
 
-export const updateBooking = async (args: UpdateBookingArgs) => {
+export const updateBooking = (args: UpdateBookingArgs) => {
   const { id, guestId, roomId, startDate, endDate } = args;
 
-  return await prisma.booking.update({
+  return prisma.booking.update({
     where: { id },
     data: {
       guestId,
@@ -46,8 +46,8 @@ export const updateBooking = async (args: UpdateBookingArgs) => {
   });
 };
 
-export const deleteBooking = async ({ id }: { id: number }) => {
-  return await prisma.booking.delete({
+export const deleteBooking = ({ id }: { id: number }) => {
+  return prisma.booking.delete({
     where: { id },
   });
 };

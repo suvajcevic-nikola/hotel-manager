@@ -1,15 +1,15 @@
 import prisma from "../prismaClient";
 
-export const getRooms = async () => {
-  return await prisma.room.findMany({
+export const getRooms = () => {
+  return prisma.room.findMany({
     include: {
       bookings: true,
     },
   });
 };
 
-export const getRoom = async ({ id }: { id: number }) => {
-  return await prisma.room.findUnique({
+export const getRoom = ({ id }: { id: number }) => {
+  return prisma.room.findUnique({
     where: { id },
     include: {
       bookings: true,
@@ -17,27 +17,27 @@ export const getRoom = async ({ id }: { id: number }) => {
   });
 };
 
-export const createRoom = async ({ number }: { number: number }) => {
-  return await prisma.room.create({
+export const createRoom = ({ number }: { number: number }) => {
+  return prisma.room.create({
     data: { number },
   });
 };
 
-export const updateRoom = async ({
+export const updateRoom = ({
   id,
   number,
 }: {
   id: number;
   number: number;
 }) => {
-  return await prisma.room.update({
+  return prisma.room.update({
     where: { id },
     data: { number },
   });
 };
 
-export const deleteRoom = async ({ id }: { id: number }) => {
-  return await prisma.room.delete({
+export const deleteRoom = ({ id }: { id: number }) => {
+  return prisma.room.delete({
     where: { id },
   });
 };

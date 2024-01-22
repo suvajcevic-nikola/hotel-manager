@@ -1,15 +1,15 @@
 import { query } from "../lib/fetch";
 
-export const getAll = async () => {
-  const data = await query.get({
+export const getAll = () => {
+  const data = query.get({
     route: "rooms",
   });
 
   return data;
 };
 
-export const createAll = async () => {
-  const data = await query.post({
+export const createAll = () => {
+  const data = query.post({
     route: "rooms",
     body: {},
   });

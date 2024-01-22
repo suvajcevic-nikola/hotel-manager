@@ -1,35 +1,35 @@
 import prisma from "../prismaClient";
 
-export const createGuest = async ({ name }: { name: string }) => {
-  return await prisma.guest.create({
+export const createGuest = ({ name }: { name: string }) => {
+  return prisma.guest.create({
     data: {
       name,
     },
   });
 };
 
-export const getGuests = async () => {
-  return await prisma.guest.findMany({
+export const getGuests = () => {
+  return prisma.guest.findMany({
     include: {
       bookings: true,
     },
   });
 };
 
-export const getGuest = async ({ id }: { id: number }) => {
-  return await prisma.guest.findUnique({
+export const getGuest = ({ id }: { id: number }) => {
+  return prisma.guest.findUnique({
     where: { id },
   });
 };
 
-export const updateGuest = async ({
+export const updateGuest = ({
   id,
   name,
 }: {
   id: number;
   name: string;
 }) => {
-  return await prisma.guest.update({
+  return prisma.guest.update({
     where: { id },
     data: {
       name,
@@ -37,8 +37,8 @@ export const updateGuest = async ({
   });
 };
 
-export const deleteGuest = async ({ id }: { id: number }) => {
-  return await prisma.guest.delete({
+export const deleteGuest = ({ id }: { id: number }) => {
+  return prisma.guest.delete({
     where: { id },
   });
 };

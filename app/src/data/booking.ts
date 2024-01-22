@@ -1,16 +1,16 @@
 import { Booking } from "../features/bookings";
 import { query } from "../lib/fetch";
 
-export const getAll = async () => {
-  const data = await query.get({
+export const getAll = () => {
+  const data = query.get({
     route: "bookings",
   });
 
   return data;
 };
 
-export const create = async (body: Booking) => {
-  const data = await query.post({
+export const create = (body: Booking) => {
+  const data = query.post({
     route: "booking",
     body: body,
   });
@@ -18,8 +18,8 @@ export const create = async (body: Booking) => {
   return data;
 };
 
-export const update = async (id: number, body: Booking) => {
-  const data = await query.put({
+export const update = (id: number, body: Booking) => {
+  const data = query.put({
     route: `booking/${id}`,
     body: body,
   });
