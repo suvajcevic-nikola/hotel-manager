@@ -1,9 +1,6 @@
 FROM node:20-alpine
-WORKDIR /next
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev
-USER node
-COPY . .
-CMD ["npm", "run", "dev"]
+COPY . /code
+WORKDIR /code
+COPY docker-build-entrypoint.sh /
+RUN dos2unix ./docker-build-entrypoint.sh && chmod +x ./docker-build-entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/docker-build-entrypoint.sh"]

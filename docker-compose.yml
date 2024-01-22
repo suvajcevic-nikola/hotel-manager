@@ -8,6 +8,14 @@ services:
       - 443:443
     volumes:
       - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD/server/db:/db
   app:
     build:
       context: ./app
@@ -19,23 +27,16 @@ services:
       - /app/node_modules
       - /app/dist
   next:
-    image: next:latest
     build:
       context: ./next
       dockerfile: Dockerfile
     restart: on-failure
-    volumes:
-      - $PWD/next:/next
     ports:
       - 3000:3000
-  server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
     volumes:
-      - $PWD/server/db:/db
+      - $PWD/next:/code
+    depends_on:
+      - server
 
 networks:
   default:
