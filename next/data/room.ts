@@ -1,3 +1,7 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+
 export const getRooms = async () => {
   const res = await fetch("http://server:8080/api/v1.0/rooms", {
     cache: "no-cache",
@@ -11,4 +15,9 @@ export const getRooms = async () => {
   }
 
   return res.json();
+};
+
+export const revalidateRooms = async () => {
+  revalidatePath("/rooms");
+  return;
 };

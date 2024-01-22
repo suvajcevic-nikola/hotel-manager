@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { Button, DatePicker, Input, Spinner } from "@/components";
 import { type DateRange } from "react-day-picker";
 import { checkIn, revalidateBookings } from "@/data/booking";
+import { revalidateRooms } from "@/data/room";
 
 export default function CheckInModal() {
   const router = useRouter();
@@ -48,7 +49,10 @@ export default function CheckInModal() {
   useEffect(() => {
     return () => {
       if (!isResSuccess) return;
-      revalidateBookings().then(() => setIsResSuccess(false));
+
+      Promise.all([revalidateBookings(), revalidateRooms()]).then(() =>
+        setIsResSuccess(false),
+      );
     };
   }, [isResSuccess]);
 

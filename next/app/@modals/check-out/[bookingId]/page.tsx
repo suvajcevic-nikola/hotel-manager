@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { Button, Spinner } from "@/components";
 import { updateBooking, revalidateBookings } from "@/data/booking";
+import { revalidateRooms } from "@/data/room";
 
 export default function CheckOutModal() {
   const router = useRouter();
@@ -42,7 +43,10 @@ export default function CheckOutModal() {
   useEffect(() => {
     return () => {
       if (!isResSuccess) return;
-      revalidateBookings().then(() => setIsResSuccess(false));
+
+      Promise.all([revalidateBookings(), revalidateRooms()]).then(() =>
+        setIsResSuccess(false),
+      );
     };
   }, [isResSuccess]);
 
