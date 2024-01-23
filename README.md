@@ -33,7 +33,7 @@ This command will download the necessary images, build the application, and star
 
 ## Accessing the App
 
-Once the containers are up and running, you can access the Hotel Manager app by navigating to [https://hotelmanager.local](https://hotelmanager.local) in your web browser.
+Once the containers are up and running, you can access the Next.js version of Hotel Manager app by navigating to [https://next.hotelmanager.local](https://next.hotelmanager.local) in your web browser. Old version of the app is available at [https://hotelmanager.local](https://hotelmanager.local).
 
 ## Stopping the App
 
