@@ -1,5 +1,7 @@
 # Hotel Manager App
 
+:information_source: **Note: This is the latest version of the application with a Next.js frontend and minor backend adjustments compared to the initial version. You can find the initial version on the branch named "initial-version."** 
+
 Welcome to the Hotel Manager application! This is a home test task that utilizes Docker, Caddy, React, Next.js, Node.js with Fastify, Prisma, and SQLite.
 
 ## Prerequisites
