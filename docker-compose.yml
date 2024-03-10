@@ -12,6 +12,16 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    restart: always
+    develop:
+      watch:
+        - action: sync
+          path: $PWD/server
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: $PWD/server/package.json
     ports:
       - "8080:8080"
     volumes:
@@ -19,12 +29,19 @@ services:
   app:
     build:
       context: ./app
-      dockerfile: Dockerfile
-    restart: on-failure
+      dockerfile: local.Dockerfile
+    restart: always
+    develop:
+      watch:
+        - action: sync
+          path: $PWD/app
+          target: /code
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: $PWD/app/package.json
     ports:
       - 3000:3000
-    volumes:
-      - $PWD/app:/code
     depends_on:
       - server
 
