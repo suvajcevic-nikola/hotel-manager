@@ -1,4 +1,6 @@
 hotelmanager.local {
+    tls internal
+
     handle {
         reverse_proxy {
             to app:3000
