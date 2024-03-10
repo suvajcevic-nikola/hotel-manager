@@ -1,7 +1,5 @@
 # Hotel Manager App
 
-:information_source: **Note: This is the latest version of the application with a Next.js frontend and minor backend adjustments compared to the initial version. You can find the initial version on the branch named "initial-version."** 
-
 Welcome to the Hotel Manager application! This is a home test task that utilizes Docker, Caddy, React, Next.js, Node.js with Fastify, Prisma, and SQLite.
 
 ## Prerequisites
@@ -21,7 +19,6 @@ Before running the application, ensure you have the following installed:
 1. Add the following entry to your `/etc/hosts` file:
 
     ```plaintext
-    127.0.0.1 next.hotelmanager.local
     127.0.0.1 hotelmanager.local
     ```
 
@@ -35,7 +32,7 @@ This command will download the necessary images, build the application, and star
 
 ## Accessing the App
 
-Once the containers are up and running, you can access the Next.js version of Hotel Manager app by navigating to [https://next.hotelmanager.local](https://next.hotelmanager.local) in your web browser. Old version of the app is available at [https://hotelmanager.local](https://hotelmanager.local).
+Once the containers are up and running, you can access the Hotel Manager app by navigating to [https://hotelmanager.local](https://hotelmanager.local) in your web browser.
 
 ## Stopping the App
 

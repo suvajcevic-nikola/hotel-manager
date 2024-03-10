@@ -1,15 +1,7 @@
-next.hotelmanager.local {
-    handle {
-        reverse_proxy {
-            to next:3000
-        }
-    }
-}
-
 hotelmanager.local {
     handle {
         reverse_proxy {
-            to app:5173
+            to app:3000
         }
     }
 }

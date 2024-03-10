@@ -10,15 +10,15 @@ import { CreateBookingArgs, UpdateBookingArgs } from "../types/bookingTypes";
 export async function bookingRoutes() {
   fastify.get("/api/v1.0/bookings", getBookingsHandler);
   fastify.post<{ Body: CreateBookingArgs }>(
-    "/api/v1.0/booking",
+    "/api/v1.0/bookings",
     createBookingHandler
   );
   fastify.put<{ Body: UpdateBookingArgs; Params: { id: string } }>(
-    "/api/v1.0/booking/:id",
+    "/api/v1.0/bookings/:id",
     updateBookingHandler
   );
   fastify.delete<{ Params: { id: string } }>(
-    "/api/v1.0/booking/:id",
+    "/api/v1.0/bookings/:id",
     deleteBookingHandler
   );
 }

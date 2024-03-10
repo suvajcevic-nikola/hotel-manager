@@ -20,21 +20,11 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./app:/app
-      - /app/node_modules
-      - /app/dist
-  next:
-    build:
-      context: ./next
-      dockerfile: Dockerfile
     restart: on-failure
     ports:
       - 3000:3000
     volumes:
-      - $PWD/next:/code
+      - $PWD/app:/code
     depends_on:
       - server
 

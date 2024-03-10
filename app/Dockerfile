@@ -1,8 +1,6 @@
 FROM node:20-alpine
-ARG APP_ENV
-ENV APP_ENV=$APP_ENV
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-CMD ["npm", "run", "dev"]
+COPY . /code
+WORKDIR /code
+COPY docker-build-entrypoint.sh /
+RUN dos2unix ./docker-build-entrypoint.sh && chmod +x ./docker-build-entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/docker-build-entrypoint.sh"]
